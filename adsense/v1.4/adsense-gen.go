@@ -2350,7 +2350,7 @@ func (c *AccountsReportsGenerateCall) Currency(currency string) *AccountsReports
 
 // Dimension sets the optional parameter "dimension": Dimensions to base
 // the report on.
-func (c *AccountsReportsGenerateCall) Dimension(dimension string) *AccountsReportsGenerateCall {
+func (c *AccountsReportsGenerateCall) Dimension(dimension []string) *AccountsReportsGenerateCall {
 	c.opt_["dimension"] = dimension
 	return c
 }
@@ -2379,7 +2379,7 @@ func (c *AccountsReportsGenerateCall) MaxResults(maxResults int64) *AccountsRepo
 
 // Metric sets the optional parameter "metric": Numeric columns to
 // include in the report.
-func (c *AccountsReportsGenerateCall) Metric(metric string) *AccountsReportsGenerateCall {
+func (c *AccountsReportsGenerateCall) Metric(metric []string) *AccountsReportsGenerateCall {
 	c.opt_["metric"] = metric
 	return c
 }
@@ -2427,7 +2427,10 @@ func (c *AccountsReportsGenerateCall) Do() (*AdsenseReportsGenerateResponse, err
 		params.Set("currency", fmt.Sprintf("%v", v))
 	}
 	if v, ok := c.opt_["dimension"]; ok {
-		params.Set("dimension", fmt.Sprintf("%v", v))
+		dimension := v.([]string)
+		for _, d := range dimension {
+			params.Add("dimension", d)
+		}
 	}
 	if v, ok := c.opt_["filter"]; ok {
 		params.Set("filter", fmt.Sprintf("%v", v))
@@ -2439,7 +2442,10 @@ func (c *AccountsReportsGenerateCall) Do() (*AdsenseReportsGenerateResponse, err
 		params.Set("maxResults", fmt.Sprintf("%v", v))
 	}
 	if v, ok := c.opt_["metric"]; ok {
-		params.Set("metric", fmt.Sprintf("%v", v))
+		metric := v.([]string)
+		for _, m := range metric {
+			params.Add("metric", m)
+		}
 	}
 	if v, ok := c.opt_["sort"]; ok {
 		params.Set("sort", fmt.Sprintf("%v", v))
